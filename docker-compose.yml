@@ -15,6 +15,9 @@ services:
     tty: true
     # Mesmo que `docker run -i`
     stdin_open: true
+    # Caminho do arquivo de env
+    env_file:
+      - .env
     # Substitui o comando padrão da imagem do node
     command: bash
     # Restarta a imagem caso algo a faça parar
@@ -36,15 +39,6 @@ services:
     ports:
       # Expõe a porta padrão da aplicação: altere aqui caso use outra porta
       - 3001:3001
-    # Configura as variáveis de ambiente dentro do container
-    environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      MYSQL_HOST: db # Nome do service logo abaixo
-      JWT_SECRET: secretJWT
-      API_HOST: 'node'
-      API_PORT: 3001
-      NODE_ENV: 'development'
     networks:
       - blogs_api_net
 
