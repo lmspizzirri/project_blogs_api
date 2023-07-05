@@ -1,6 +1,11 @@
 const { User } = require('../models');
 const { createToken } = require('../utils/JWT');
 
+const getAll = async () => {
+    const allUsers = await User.findAll({ attributes: { exclude: 'password' } });
+    return { type: 200, message: allUsers };
+};
+
 const loginUser = async ({ email, password }) => {
     const user = await User.findOne({ where: { email } });
     if (!user || user.password !== password) {
@@ -27,4 +32,4 @@ const createUser = async (user) => {
     return { type: 201, message: { token } };
 };
 
-module.exports = { loginUser, createUser };
+module.exports = { loginUser, createUser, getAll };
