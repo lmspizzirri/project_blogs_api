@@ -6,4 +6,10 @@ const loginUser = async (req, res) => {
     return res.status(type).json(message);
 };
 
-module.exports = { loginUser };
+const createUser = async (req, res) => {
+    const user = req.body;
+    const { type, message } = await userService.createUser(user);
+    return res.status(type).json(message);
+};
+
+module.exports = { loginUser, createUser };
