@@ -5,6 +5,12 @@ const getAll = async (req, res) => {
     return res.status(type).json(message);
 };
 
+const getById = async (req, res) => {
+    const { id } = req.params;
+    const { type, message } = await userService.getById(id);
+    return res.status(type).json(message);
+};
+
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
     const { type, message } = await userService.loginUser({ email, password });
@@ -17,4 +23,4 @@ const createUser = async (req, res) => {
     return res.status(type).json(message);
 };
 
-module.exports = { loginUser, createUser, getAll };
+module.exports = { loginUser, createUser, getAll, getById };

@@ -6,6 +6,16 @@ const getAll = async () => {
     return { type: 200, message: allUsers };
 };
 
+const getById = async (id) => {
+    const user = await User.findOne({ 
+        where: { id },
+        attributes: { exclude: 'password' } });
+    if (!user) {
+        return { type: 404, message: { message: 'User does not exist' } };
+    }
+    return { type: 200, message: user };
+};
+
 const loginUser = async ({ email, password }) => {
     const user = await User.findOne({ where: { email } });
     if (!user || user.password !== password) {
@@ -32,4 +42,4 @@ const createUser = async (user) => {
     return { type: 201, message: { token } };
 };
 
-module.exports = { loginUser, createUser, getAll };
+module.exports = { loginUser, createUser, getAll, getById };
