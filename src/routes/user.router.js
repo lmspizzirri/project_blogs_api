@@ -10,6 +10,7 @@ const routers = express.Router();
 
 routers.get('/', validateToken, userController.getAll);
 routers.get('/:id', validateToken, userController.getById);
+routers.delete('/me', validateToken, userController.deleteMe);
 routers.post(
     '/', 
     displayNameValidation, 

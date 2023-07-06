@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const { createToken } = require('../utils/JWT');
+const { createToken, decodeToken } = require('../utils/JWT');
 
 const getAll = async () => {
     const allUsers = await User.findAll({ attributes: { exclude: 'password' } });
@@ -42,4 +42,10 @@ const createUser = async (user) => {
     return { type: 201, message: { token } };
 };
 
-module.exports = { loginUser, createUser, getAll, getById };
+const deleteMe = async (token) => {
+    const { id } = decodeToken(token);
+    await User.destroy({ where: { id } });
+    return { type: 204 };
+};
+
+module.exports = { loginUser, createUser, getAll, getById, deleteMe };

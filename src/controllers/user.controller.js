@@ -23,4 +23,13 @@ const createUser = async (req, res) => {
     return res.status(type).json(message);
 };
 
-module.exports = { loginUser, createUser, getAll, getById };
+const deleteMe = async (req, res) => {
+    const token = req.headers.authorization;
+    const { type, message } = await userService.deleteMe(token);
+    if (type) {
+        return res.status(type).json(message);
+    }
+    return res.status(204).end();
+};
+
+module.exports = { loginUser, createUser, getAll, getById, deleteMe };
